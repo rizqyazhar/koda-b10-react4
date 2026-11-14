@@ -4,7 +4,7 @@ export default function RowTable(props) {
     <tr className='hover:bg-emerald-100 grid grid-cols-[50px_250px_250px_450px_150px]'>
       <td className='p-4'>{order}</td>
       <td className='p-4'>
-        <div className='truncate'>{name}</div>
+        <div className='capitalize truncate'>{name}</div>
       </td>
       <td className='p-4'>
         <div className='truncate'>{email}</div>
