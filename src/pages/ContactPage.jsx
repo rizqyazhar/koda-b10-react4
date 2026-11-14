@@ -1,6 +1,33 @@
+import Input from "../components/Input";
+import Label from "../components/Label";
+import RowTable from "../components/RowTable";
+import Table from "../components/Table";
 import PageLayout from "../layouts/PageLayout";
 
+const dataFromLocalStorage =
+  JSON.parse(localStorage.getItem("message-lists")) || [];
+
 export default function ContactPage() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
+
+    const date = new Date().toLocaleDateString("id-ID");
+
+    const temp = { name, email, message, date };
+
+    const saveData = [...dataFromLocalStorage, temp];
+
+    localStorage.setItem("message-lists", JSON.stringify(saveData));
+
+    e.target.reset();
+  };
+
   return (
     <PageLayout>
       <section className='w-full flex flex-col gap-10 md:px-14 py-20 text-emerald-950'>
@@ -15,47 +42,54 @@ export default function ContactPage() {
             </p>
           </div>
         </div>
-        <form className='flex flex-col gap-5 w-1/2 p-10 border-2 border-emerald-950 rounded-xl bg-emerald-50'>
-          <label
-            htmlFor='name'
-            className='w-full flex flex-col gap-1 text-xs font-medium uppercase'>
-            Nama Lengkap
-            <input
+        <form
+          onSubmit={handleSubmit}
+          className='flex flex-col gap-5 w-1/2 p-10 border-2 border-emerald-950 rounded-xl bg-emerald-50'>
+          <Label htmlFor='name' labelText='Nama Lengkap'>
+            <Input
               type='text'
               placeholder='Masukkan nama lengkap anda'
               id='name'
               name='name'
-              className='w-full px-2 py-1 outline-none border-2 border-emerald-950 rounded-md text-base'
             />
-          </label>
-          <label
-            htmlFor='email'
-            className='w-full flex flex-col gap-1 text-xs font-medium uppercase'>
-            Email
-            <input
+          </Label>
+          <Label htmlFor='email' labelText='Email'>
+            <Input
               type='email'
               placeholder='Masukkan alamat email anda'
               id='email'
               name='email'
-              className='w-full px-2 py-1 outline-none border-2 border-emerald-950 rounded-md text-base'
             />
-          </label>
-          <label
-            htmlFor='message'
-            className='w-full flex flex-col gap-1 text-xs font-medium uppercase'>
-            Pesan
+          </Label>
+          <Label htmlFor='message' labelText='Pesan'>
             <textarea
               name='message'
               id='message'
               placeholder='Tuliskan pertanyaan atau pesan Anda di sini.'
               className='w-full h-40 px-2 py-1 outline-none border-2 border-emerald-950 rounded-md text-base'></textarea>
-          </label>
+          </Label>
           <button
             type='submit'
             className='bg-emerald-900 rounded-lg px-4 py-2 text-white cursor-pointer'>
             Kirim Pesan
           </button>
         </form>
+      </section>
+      <section className='w-full flex flex-col gap-10 md:px-14 py-10 text-emerald-950'>
+        <Table>
+          {dataFromLocalStorage.map((item, index) => {
+            return (
+              <RowTable
+                key={index}
+                order={index + 1}
+                name={item.name}
+                email={item.email}
+                message={item.message}
+                date={item.date}
+              />
+            );
+          })}
+        </Table>
       </section>
     </PageLayout>
   );
