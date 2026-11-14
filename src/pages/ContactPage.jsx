@@ -1,13 +1,19 @@
+import { useEffect, useState } from "react";
 import Input from "../components/Input";
 import Label from "../components/Label";
 import RowTable from "../components/RowTable";
 import Table from "../components/Table";
 import PageLayout from "../layouts/PageLayout";
 
-const dataFromLocalStorage =
-  JSON.parse(localStorage.getItem("message-lists")) || [];
-
 export default function ContactPage() {
+  const [dataMessage, setDataMessage] = useState(
+    () => JSON.parse(localStorage.getItem("message-lists")) || [],
+  );
+
+  useEffect(() => {
+    localStorage.setItem("message-lists", JSON.stringify(dataMessage));
+  }, [dataMessage]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -16,14 +22,11 @@ export default function ContactPage() {
     const name = formData.get("name");
     const email = formData.get("email");
     const message = formData.get("message");
-
     const date = new Date().toLocaleDateString("id-ID");
 
     const temp = { name, email, message, date };
 
-    const saveData = [...dataFromLocalStorage, temp];
-
-    localStorage.setItem("message-lists", JSON.stringify(saveData));
+    setDataMessage((prev) => [...prev, temp]);
 
     e.target.reset();
   };
@@ -77,7 +80,7 @@ export default function ContactPage() {
       </section>
       <section className='w-full flex flex-col gap-10 md:px-14 py-10 text-emerald-950'>
         <Table>
-          {dataFromLocalStorage.map((item, index) => {
+          {dataMessage.map((item, index) => {
             return (
               <RowTable
                 key={index}
