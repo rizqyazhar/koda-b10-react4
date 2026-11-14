@@ -54,6 +54,7 @@ export default function ContactPage() {
               placeholder='Masukkan nama lengkap anda'
               id='name'
               name='name'
+              required
             />
           </Label>
           <Label htmlFor='email' labelText='Email'>
@@ -62,6 +63,7 @@ export default function ContactPage() {
               placeholder='Masukkan alamat email anda'
               id='email'
               name='email'
+              required
             />
           </Label>
           <Label htmlFor='message' labelText='Pesan'>
@@ -69,7 +71,8 @@ export default function ContactPage() {
               name='message'
               id='message'
               placeholder='Tuliskan pertanyaan atau pesan Anda di sini.'
-              className='w-full h-40 px-2 py-1 outline-none border-2 border-emerald-950 rounded-md text-base'></textarea>
+              className='w-full h-40 px-2 py-1 outline-none border-2 border-emerald-950 rounded-md text-base'
+              required></textarea>
           </Label>
           <button
             type='submit'
