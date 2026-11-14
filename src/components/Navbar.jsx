@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 
 export default function Navbar() {
   return (
-    <header className='sticky top-0 flex items-center justify-between md:px-14 py-5 text-emerald-950 bg-white border-b-2 border-emerald-900'>
+    <header className='z-50 sticky top-0 flex items-center justify-between md:px-14 py-5 text-emerald-950 bg-white border-b-2 border-emerald-900'>
       <div>
         <span className='text-2xl font-extrabold'>BeliAja</span>
       </div>
