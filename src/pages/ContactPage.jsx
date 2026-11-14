@@ -71,7 +71,7 @@ export default function ContactPage() {
               name='message'
               id='message'
               placeholder='Tuliskan pertanyaan atau pesan Anda di sini.'
-              className='w-full h-40 px-2 py-1 outline-none border-2 border-emerald-950 rounded-md text-base'
+              className='w-full h-40 resize-none px-2 py-1 outline-none border-2 border-emerald-950 rounded-md text-base'
               required></textarea>
           </Label>
           <button
