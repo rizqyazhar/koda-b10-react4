@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import PageLayout from "../layouts/PageLayout";
 import Card from "../components/Card";
 
